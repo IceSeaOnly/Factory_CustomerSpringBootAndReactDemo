@@ -7,6 +7,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import site.binghai.lib.entity.SessionDataBundle;
+import site.binghai.lib.enums.ErrorCode;
 import site.binghai.lib.interfaces.SessionPersistent;
 import site.binghai.lib.utils.BaseBean;
 
@@ -86,6 +87,13 @@ public class BaseController extends BaseBean {
         JSONObject object = new JSONObject();
         object.put("status", "FAIL");
         object.put("msg", err);
+        return object;
+    }
+
+    public JSONObject fail(ErrorCode err) {
+        JSONObject object = new JSONObject();
+        object.put("status", "FAIL");
+        object.put("msg", err.name());
         return object;
     }
 
