@@ -1,10 +1,7 @@
 package site.binghai.biz.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import site.binghai.biz.entity.User;
 import site.binghai.biz.service.UserService;
 import site.binghai.lib.enums.ErrorCode;
@@ -42,5 +39,11 @@ public class LoginAndLogoutController extends BaseController {
         persistent(user);
 
         return success(user, null);
+    }
+
+    @GetMapping("logout")
+    public Object logout(){
+        getSession().invalidate();
+        return success();
     }
 }

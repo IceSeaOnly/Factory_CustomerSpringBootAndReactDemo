@@ -1,6 +1,7 @@
 package site.binghai.biz.filter;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import site.binghai.biz.entity.User;
 import site.binghai.biz.enums.UserRule;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,12 +14,16 @@ import javax.servlet.http.HttpSession;
  **/
 public abstract class BaseUserFilter extends HandlerInterceptorAdapter {
 
+    private static final String TAG = new User().sessionTag();
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
         throws Exception {
         HttpSession session = request.getSession();
-        if (session != null) {
-            if (session.getAttribute(getRule().name()) != null) {
+        if (session != null && session.getAttribute(TAG) != null) {
+            User user = (User)session.getAttribute(TAG);
+
+            if (user.getRule().equals(getRule().name())) {
                 return true;
             }
         }

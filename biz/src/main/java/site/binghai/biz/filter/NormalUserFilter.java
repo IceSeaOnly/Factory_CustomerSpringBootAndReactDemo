@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 public class NormalUserFilter extends BaseUserFilter {
     @Override
     protected String getRedirectUrl(HttpSession session) {
-        return "login";
+        return "/normalLogin#user/login";
     }
 
     @Override

@@ -12,7 +12,7 @@ public enum UserRule {
     /**
      * 企业集群用户
      * */
-    FACTORY_MANAGER,
+    FACTORY_GROUP,
     /**
      * 普通企业用户
      * */

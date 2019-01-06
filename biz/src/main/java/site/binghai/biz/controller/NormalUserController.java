@@ -51,6 +51,7 @@ public class NormalUserController extends BaseController {
     /**
      * 删
      */
+    @GetMapping("deleteOrder")
     public Object deleteOrder(@RequestParam Long id) {
         User user = getSessionPersistent(User.class);
         CustomerOrder order = customerOrderService.findById(id);
@@ -73,7 +74,7 @@ public class NormalUserController extends BaseController {
     /**
      * 改
      */
-    @PostMapping("updateOrdre")
+    @PostMapping("updateOrder")
     public Object updateOrder(@RequestBody Map map) {
         User user = getSessionPersistent(User.class);
 
@@ -100,13 +101,13 @@ public class NormalUserController extends BaseController {
      */
     @GetMapping("listOrder")
     public Object listOrder(@RequestParam Integer page) {
-        if (page <= 0) {
-            page = 1;
+        if (page < 0) {
+            page = 0;
         }
 
         User user = getSessionPersistent(User.class);
 
-        List<CustomerOrder> orders = customerOrderService.findByFactoryIdAndPage(user.getFactoryId(), page);
+        List<CustomerOrder> orders = customerOrderService.findByFactoryIdAndPage(user.getFactoryId(), page - 1);
         Long total = customerOrderService.countByFactoryId(user.getFactoryId());
 
         JSONObject ret = newJSONObject();
